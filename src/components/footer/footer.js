@@ -12,7 +12,7 @@ const Footer = () => {
       </h3>
       <ul className="d-flex">
         <li>
-          <a href="https://github.com/ar-iv">github</a>
+          <a href="https://github.com/ar-iv/star-db">github</a>
         </li>
       </ul>
     </div>
