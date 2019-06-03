@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Header from '../header';
 import Footer from '../footer';
 import RandomPlanet from '../random-planet';
+import PeoplePage from '../people-page';
 import ItemList from '../item-list';
 import PersonDetails from '../person-details';
 import ErrorIndicator from '../error-indicator';
@@ -27,11 +28,7 @@ export default class App extends Component {
     });
   };
 
-  onPersonSelected = (id) => {
-    this.setState({
-      selectedPerson: id
-    })
-  };
+
 
   componentDidCatch() {
     console.log('componentDidCatch()');
@@ -59,15 +56,8 @@ export default class App extends Component {
           </button>
           <ErrorButton />
         </div>
+        <PeoplePage />
 
-        <div className="row mb2">
-          <div className="col-md-6">
-            <ItemList onItemSelected={this.onPersonSelected} />
-          </div>
-          <div className="col-md-6">
-            <PersonDetails personId={this.state.selectedPerson} />
-          </div>
-        </div>
         <Footer />
       </div>
     );
