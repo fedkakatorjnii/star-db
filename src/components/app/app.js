@@ -44,6 +44,7 @@ export default class App extends Component {
         getImageUrl={getPersonImage} >
 
         <Record field="gender" label="Gender" />
+        <Record field="birthYear" label="birthYear" />
         <Record field="eyeColor" label="Eye Color" />
 
       </ItemDetails>
