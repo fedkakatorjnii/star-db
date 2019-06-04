@@ -1,4 +1,7 @@
-.button-row {
-  margin-bottom: 1rem;
+.button-row button {
+	margin-right: 1rem;
 }
 
+.mb2 {
+	margin-bottom: 1rem;
+}
