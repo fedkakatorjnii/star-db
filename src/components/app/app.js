@@ -1,23 +1,17 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import Header from '../header';
-import Footer from '../footer';
 import RandomPlanet from '../random-planet';
-import PeoplePage from '../people-page';
-import ItemList from '../item-list';
-import PersonDetails from '../person-details';
-import ErrorIndicator from '../error-indicator';
 import ErrorButton from '../error-button';
+import PeoplePage from '../people-page';
+import ErrorBoundry from "../error-boundry";
 
 import './app.css';
-
 
 export default class App extends Component {
 
   state = {
-    showRandomPlanet: true,
-    selectedPerson: null,
-    hasError: false
+    showRandomPlanet: true
   };
 
   toggleRandomPlanet = () => {
@@ -28,38 +22,31 @@ export default class App extends Component {
     });
   };
 
-
-
-  componentDidCatch() {
-    console.log('componentDidCatch()');
-    this.setState({hasError: true});
-  }
-
-  render () {
-    if(this.state.hasError) {
-      return <ErrorIndicator />
-    }
+  render() {
 
     const planet = this.state.showRandomPlanet ?
       <RandomPlanet/> :
       null;
 
     return (
-      <div>
-        <Header />
-        { planet }
-        <div className="row mb2 button-row">
-          <button
-            className="toggle-planet btn btn-warning btn-lg"
-            onClick={this.toggleRandomPlanet}>
-            Toggle Random Planet
-          </button>
-          <ErrorButton />
-        </div>
-        <PeoplePage />
+      <ErrorBoundry>
+        <div className="stardb-app">
+          <Header />
+          { planet }
 
-        <Footer />
-      </div>
+          <div className="row mb2 button-row">
+            <button
+              className="toggle-planet btn btn-warning btn-lg"
+              onClick={this.toggleRandomPlanet}>
+              Toggle Random Planet
+            </button>
+            <ErrorButton />
+          </div>
+
+          <PeoplePage />
+
+        </div>
+      </ErrorBoundry>
     );
-  };
-};
+  }
+}

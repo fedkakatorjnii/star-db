@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Spinner from '../spinner/spinner.js';
 import ErrorIndicator from '../error-indicator';
+import ErrorButton from '../error-button';
 import SwapiService from '../../services/swapi-service.js';
 
 import './person-details.css';
@@ -112,6 +113,7 @@ const PersenView = ({person}) => {
               <span>{eyeColor}</span>
             </li>
           </ul>
+          <ErrorButton />
         </div>
     </React.Fragment>
   );
