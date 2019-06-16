@@ -4,95 +4,97 @@ import Header from '../header';
 import RandomPlanet from '../random-planet';
 import ErrorBoundry from '../error-boundry';
 
-import Row from "../row/row";
 import ItemDetails, { Record } from "../item-details/item-details";
 import SwapiService from "../../services/swapi-service";
 
-import ItemList  from "../item-list/item-list";
+import {
+    PersonDetails,
+    PlanetDetails,
+    StarshipDetails,
+    PersonList,
+    PlanetList,
+    StarshipList
+} from '../sw-components';
 
 import './app.css';
+import Row from "../row";
 
 export default class App extends Component {
 
-  swapiService = new SwapiService();
+    swapiService = new SwapiService();
 
-  state = {
-    showRandomPlanet: true
-  };
+    state = {
+        showRandomPlanet: true
+    };
 
-  toggleRandomPlanet = () => {
-    this.setState((state) => {
-      return {
-        showRandomPlanet: !state.showRandomPlanet
-      }
-    });
-  };
+    toggleRandomPlanet = () => {
+        this.setState((state) => {
+            return {
+                showRandomPlanet: !state.showRandomPlanet
+            }
+        });
+    };
 
-  render() {
+    render() {
 
-    const planet = this.state.showRandomPlanet ?
-      <RandomPlanet/> :
-      null;
+        const planet = this.state.showRandomPlanet ?
+            <RandomPlanet/> :
+            null;
 
-    const { getPerson,
+        const { getPerson,
             getStarship,
             getPersonImage,
+            getStarshipImage,
             getAllPeople,
-            getAllPlanets,
-            getStarshipImage } = this.swapiService;
+            getAllPlanets } = this.swapiService;
 
-    const personDetails = (
-      <ItemDetails
-        itemId={11}
-        getData={getPerson}
-        getImageUrl={getPersonImage} >
+        const personDetails = (
+            <ItemDetails
+                itemId={11}
+                getData={getPerson}
+                getImageUrl={getPersonImage} >
 
-        <Record field="gender" label="Gender" />
-        <Record field="birthYear" label="birthYear" />
-        <Record field="eyeColor" label="Eye Color" />
+                <Record field="gender" label="Gender" />
+                <Record field="eyeColor" label="Eye Color" />
 
-      </ItemDetails>
-    );
+            </ItemDetails>
+        );
 
-    const starshipDetails = (
-      <ItemDetails
-        itemId={5}
-        getData={getStarship}
-        getImageUrl={getStarshipImage}>
+        const starshipDetails = (
+            <ItemDetails
+                itemId={5}
+                getData={getStarship}
+                getImageUrl={getStarshipImage}>
 
-        <Record field="model" label="Model" />
-        <Record field="length" label="Length" />
-        <Record field="costInCredits" label="Cost" />
-      </ItemDetails>
+                <Record field="model" label="Model" />
+                <Record field="length" label="Length" />
+                <Record field="costInCredits" label="Cost" />
+            </ItemDetails>
+        );
 
-    );
+        return (
+            <ErrorBoundry>
+                <div className="stardb-app">
+                    <Header />
 
-    return (
-      <ErrorBoundry>
-        <div className="stardb-app">
-          <Header />
+                    { planet }
 
-            { planet }
+                    <PersonList />
 
-            <ItemList
-                getData={getAllPeople}
-                onItemSelected={() => {}}>
+                    <StarshipList />
 
-                { ({name}) => <span>{name}</span> }
-            </ItemList>
+                    <PlanetList />
 
-            <ItemList
-                getData={getAllPlanets}
-                onItemSelected={() => {}}>
+                    <PersonDetails itemId={11} />
 
-                { ({name}) => <span>{name}</span> }
-            </ItemList>
+                    <PlanetDetails itemId={5} />
 
-          <Row
-            left={personDetails}
-            right={starshipDetails} />
-        </div>
-      </ErrorBoundry>
-    );
-  }
+                    <StarshipDetails itemId={9} />
+
+                </div>
+            </ErrorBoundry>
+        );
+    }
 }
+
+
