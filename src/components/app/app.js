@@ -8,6 +8,8 @@ import Row from "../row/row";
 import ItemDetails, { Record } from "../item-details/item-details";
 import SwapiService from "../../services/swapi-service";
 
+import ItemList  from "../item-list/item-list";
+
 import './app.css';
 
 export default class App extends Component {
@@ -35,6 +37,8 @@ export default class App extends Component {
     const { getPerson,
             getStarship,
             getPersonImage,
+            getAllPeople,
+            getAllPlanets,
             getStarshipImage } = this.swapiService;
 
     const personDetails = (
@@ -67,6 +71,22 @@ export default class App extends Component {
       <ErrorBoundry>
         <div className="stardb-app">
           <Header />
+
+            { planet }
+
+            <ItemList
+                getData={getAllPeople}
+                onItemSelected={() => {}}>
+
+                { ({name}) => <span>{name}</span> }
+            </ItemList>
+
+            <ItemList
+                getData={getAllPlanets}
+                onItemSelected={() => {}}>
+
+                { ({name}) => <span>{name}</span> }
+            </ItemList>
 
           <Row
             left={personDetails}
