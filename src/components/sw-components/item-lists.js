@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ItemList from '../item-list';
 import { withData } from '../hoc-helpers';
 import SwapiService from '../../services/swapi-service';
@@ -21,8 +22,8 @@ const withChildFunction = (Wrapped, fn) => {
     };
 };
 
-const renderName = ({ name }) => <span>{name}</span>;
-const renderModelAndName = ({ model, name}) => <span>{name} ({model})</span>;
+const renderName = ({name}) => <span>{name}</span>;
+const renderModelAndName = ({model, name}) => <span>{name} ({model})</span>;
 
 const PersonList = withData(
     withChildFunction(ItemList, renderName),

@@ -5,7 +5,10 @@ import RandomPlanet from '../random-planet';
 import ErrorBoundry from '../error-boundry';
 
 import ItemDetails, { Record } from "../item-details/item-details";
-import SwapiService from "../../services/swapi-service";
+import SwapiService from '../../services/swapi-service';
+import DummySwapiService from '../../services/dummy-swapi-service';
+
+import { SwapiServiceProvider } from '../swapi-service-context';
 
 import {
     PersonDetails,
@@ -17,11 +20,10 @@ import {
 } from '../sw-components';
 
 import './app.css';
-import Row from "../row";
 
 export default class App extends Component {
 
-    swapiService = new SwapiService();
+    swapiService = new DummySwapiService();
 
     state = {
         showRandomPlanet: true
@@ -74,27 +76,25 @@ export default class App extends Component {
 
         return (
             <ErrorBoundry>
-                <div className="stardb-app">
-                    <Header />
+                <SwapiServiceProvider value={this.swapiService} >
+                    <div className="stardb-app">
+                        <Header />
 
-                    { planet }
+                        <PersonDetails itemId={11} />
 
-                    <PersonList />
+                        <PlanetDetails itemId={5} />
 
-                    <StarshipList />
+                        <StarshipDetails itemId={9} />
 
-                    <PlanetList />
+                        <PersonList />
 
-                    <PersonDetails itemId={11} />
+                        <StarshipList />
 
-                    <PlanetDetails itemId={5} />
+                        <PlanetList />
 
-                    <StarshipDetails itemId={9} />
-
-                </div>
+                    </div>
+                </SwapiServiceProvider>
             </ErrorBoundry>
         );
     }
 }
-
-
