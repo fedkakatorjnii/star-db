@@ -9,8 +9,9 @@ import DummySwapiService from '../../services/dummy-swapi-service';
 
 import { StarshipDetails, StarshipList } from '../sw-components';
 
-import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages';
+import { PeoplePage, PlanetsPage, StarshipsPage, SecretPage, LoginPage } from '../pages';
 import { SwapiServiceProvider } from '../swapi-service-context';
+
 
 import './app.css';
 
@@ -19,7 +20,16 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 export default class App extends Component {
 
   state = {
-    swapiService: new SwapiService()
+    swapiService: new SwapiService(),
+    isLoggedIn: false
+  };
+
+  onLogin = () => {
+    this.setState((state) => {
+      return {
+        isLoggedIn: !state.isLoggedIn
+      }
+    });
   };
 
   onServiceChange = () => {
@@ -34,12 +44,18 @@ export default class App extends Component {
 
   render() {
 
+    const { isLoggedIn } = this.state;
+
+    // const Service = swapiService instanceof SwapiService ? DummySwapiService : SwapiService; 
+
     return (
       <ErrorBoundry>
         <SwapiServiceProvider value={this.state.swapiService} >
           <Router>
             <div className="stardb-app">
-              <Header onServiceChange={this.onServiceChange} />
+              <Header 
+                onServiceChange={this.onServiceChange}
+                isLoggedIn={isLoggedIn} />
 
               <RandomPlanet updateInterval={2000}/>
 
@@ -65,6 +81,21 @@ export default class App extends Component {
                       const { id } = match.params;
                       return <StarshipDetails itemId={id} />
                      }} />
+
+
+              <Route path="/secret" 
+                     render = {() => (
+                      <SecretPage 
+                        isLoggedIn={ isLoggedIn } />
+                     )}
+                     exact />
+              <Route path="/login" 
+                     render = {() => (
+                      <LoginPage 
+                        isLoggedIn={ isLoggedIn }
+                        onLogin={this.onLogin} />
+                     )}
+                     exact />
             </div>
               <Footer />
           </Router>

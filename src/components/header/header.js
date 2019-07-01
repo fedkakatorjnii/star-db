@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 
 import './header.css';
 
-const Header = ({ onServiceChange }) => {
+const Header = ({ onServiceChange, isLoggedIn }) => {
+
+  const authorizationText = isLoggedIn ? 'Logout' : 'Login';
+
   return (
     <div className="header d-flex">
       <h3>
@@ -18,6 +21,12 @@ const Header = ({ onServiceChange }) => {
         </li>
         <li>
           <Link to="/starships/">Starships</Link>
+        </li>
+        <li>
+          <Link to="/login">{authorizationText}</Link>
+        </li>
+        <li>
+          <Link to="/secret">Secret</Link>
         </li>
       </ul>
 
