@@ -7,6 +7,8 @@ import ErrorBoundry from '../error-boundry';
 import SwapiService from '../../services/swapi-service';
 import DummySwapiService from '../../services/dummy-swapi-service';
 
+import { StarshipDetails, StarshipList } from '../sw-components';
+
 import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages';
 import { SwapiServiceProvider } from '../swapi-service-context';
 
@@ -46,8 +48,14 @@ export default class App extends Component {
                      exact={true} />
               <Route path="/people" component={PeoplePage} />
               <Route path="/planets" component={PlanetsPage} />
-              <Route path="/starships" component={StarshipsPage} />
-
+              <Route path="/starships" 
+                     component={StarshipsPage}
+                     exact />
+              <Route path="/starships/:id" 
+                     render={({ match }) => {
+                      const { id } = match.params;
+                      return <StarshipDetails itemId={id} />
+                     }} />
             </div>
               <Footer />
           </Router>
