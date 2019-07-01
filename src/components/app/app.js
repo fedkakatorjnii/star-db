@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Header from '../header';
+import Footer from '../footer';
 import RandomPlanet from '../random-planet';
 import ErrorBoundry from '../error-boundry';
 import SwapiService from '../../services/swapi-service';
@@ -45,6 +46,7 @@ export default class App extends Component {
               <Route path="/starships" component={StarshipsPage} />
 
             </div>
+              <Footer />
           </Router>
         </SwapiServiceProvider>
       </ErrorBoundry>
